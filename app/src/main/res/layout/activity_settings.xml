@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/settings_padding"
+        android:paddingTop="@dimen/settings_padding"
+        android:paddingEnd="@dimen/settings_padding"
+        android:paddingBottom="@dimen/settings_padding">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/SettingsTitle"
+            android:text="@string/app_name" />
+
+        <!-- Setting up -->
+        <TextView
+            android:id="@+id/heading_setup"
+            style="@style/SettingsHeading"
+            android:text="@string/heading_setup" />
+
+        <TextView
+            android:id="@+id/setup_status"
+            style="@style/SettingsText"
+            android:accessibilityLiveRegion="polite" />
+
+        <Button
+            android:id="@+id/enable_button"
+            style="@style/SettingsButton"
+            android:text="@string/setup_enable" />
+
+        <Button
+            android:id="@+id/select_button"
+            style="@style/SettingsButton"
+            android:text="@string/setup_select" />
+
+        <TextView
+            android:id="@+id/try_label"
+            style="@style/SettingsText"
+            android:labelFor="@id/try_field"
+            android:text="@string/setup_try" />
+
+        <EditText
+            android:id="@+id/try_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:minHeight="@dimen/min_touch_target" />
+
+        <!-- The keyboard -->
+        <TextView
+            android:id="@+id/heading_keyboard"
+            style="@style/SettingsHeading"
+            android:text="@string/heading_keyboard" />
+
+        <TextView
+            style="@style/SettingsText"
+            android:text="@string/setting_zhuyin_layout" />
+
+        <RadioGroup
+            android:id="@+id/zhuyin_layout_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/setting_zhuyin_layout">
+
+            <RadioButton
+                android:id="@+id/layout_dachen"
+                style="@style/SettingsChoice"
+                android:text="@string/layout_dachen" />
+
+            <RadioButton
+                android:id="@+id/layout_et26"
+                style="@style/SettingsChoice"
+                android:text="@string/layout_et26" />
+
+            <RadioButton
+                android:id="@+id/layout_hsu"
+                style="@style/SettingsChoice"
+                android:text="@string/layout_hsu" />
+        </RadioGroup>
+
+        <TextView
+            style="@style/SettingsText"
+            android:text="@string/setting_key_height" />
+
+        <RadioGroup
+            android:id="@+id/key_height_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/setting_key_height">
+
+            <RadioButton
+                android:id="@+id/key_height_normal"
+                style="@style/SettingsChoice"
+                android:text="@string/key_height_normal" />
+
+            <RadioButton
+                android:id="@+id/key_height_large"
+                style="@style/SettingsChoice"
+                android:text="@string/key_height_large" />
+
+            <RadioButton
+                android:id="@+id/key_height_extra_large"
+                style="@style/SettingsChoice"
+                android:text="@string/key_height_extra_large" />
+        </RadioGroup>
+
+        <Switch
+            android:id="@+id/vibrate_switch"
+            style="@style/SettingsSwitch"
+            android:text="@string/setting_vibrate" />
+
+        <Switch
+            android:id="@+id/sound_switch"
+            style="@style/SettingsSwitch"
+            android:text="@string/setting_sound" />
+
+        <Switch
+            android:id="@+id/auto_capitalize_switch"
+            style="@style/SettingsSwitch"
+            android:text="@string/setting_auto_capitalize" />
+
+        <!-- Zhuyin -->
+        <TextView
+            android:id="@+id/heading_zhuyin"
+            style="@style/SettingsHeading"
+            android:text="@string/heading_zhuyin" />
+
+        <Switch
+            android:id="@+id/auto_learn_switch"
+            style="@style/SettingsSwitch"
+            android:text="@string/setting_auto_learn" />
+
+        <Button
+            android:id="@+id/reset_learning_button"
+            style="@style/SettingsButton"
+            android:text="@string/reset_learning_title" />
+
+        <!-- Accessibility -->
+        <TextView
+            android:id="@+id/heading_accessibility"
+            style="@style/SettingsHeading"
+            android:text="@string/heading_accessibility" />
+
+        <TextView
+            style="@style/SettingsText"
+            android:text="@string/accessibility_explanation" />
+
+        <Switch
+            android:id="@+id/speak_password_keys_switch"
+            style="@style/SettingsSwitch"
+            android:text="@string/setting_speak_password_keys" />
+
+        <!-- About -->
+        <TextView
+            android:id="@+id/heading_about"
+            style="@style/SettingsHeading"
+            android:text="@string/heading_about" />
+
+        <TextView
+            android:id="@+id/about_version"
+            style="@style/SettingsText" />
+
+        <TextView
+            style="@style/SettingsText"
+            android:autoLink="web"
+            android:text="@string/about_text" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,12 @@
+# The Rust toolchain that builds libchewing, both for the phone (through CMake and Corrosion)
+# and for the build machine (the chewing-cli tool that compiles the dictionaries).
+# Pinned so that release builds are reproducible.
+[toolchain]
+channel = "1.95.0"
+profile = "minimal"
+targets = [
+    "aarch64-linux-android",
+    "armv7-linux-androideabi",
+    "i686-linux-android",
+    "x86_64-linux-android",
+]

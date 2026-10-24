@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:settingsActivity="io.github.keyang556.kboard.settings.SettingsActivity"
+    android:supportsSwitchingToNextInputMethod="true">
+    <!-- One subtype: the keyboard switches between Zhuyin and English by itself. -->
+    <subtype
+        android:imeSubtypeLocale="zh_TW"
+        android:imeSubtypeMode="keyboard"
+        android:isAsciiCapable="true"
+        android:label="@string/subtype_zh_tw"
+        android:languageTag="zh-TW"
+        tools:ignore="UnusedAttribute" />
+</input-method>

@@ -1,0 +1,28 @@
+<p>Kboard is a Zhuyin (Bopomofo) keyboard for Traditional Chinese as written in Taiwan, designed first of all to work well with the TalkBack screen reader.</p>
+
+<p><b>Typing</b></p>
+<ul>
+<li>Zhuyin, with the intelligent phrase conversion of libchewing (新酷音), the engine of Guileless Bopomofo (樸實注音) and of Chewing on the desktop</li>
+<li>Three Zhuyin layouts: standard Dachen (大千), ETen 26-key (倚天 26 鍵) and Hsu (許氏)</li>
+<li>English letters, numbers, half-width symbols and full-width Chinese punctuation</li>
+<li>Number and phone pads for number fields</li>
+<li>A symbol table with emoji</li>
+<li>Basic hardware keyboard support: Shift+Space switches between Chinese and English</li>
+</ul>
+
+<p><b>TalkBack</b></p>
+<ul>
+<li>Every key is its own accessibility node: explore the keyboard by touch and lift your finger to type, as with AOSP's keyboard and HeliBoard</li>
+<li>Zhuyin is read with a Chinese voice whatever the system language; symbols and tones are read by name</li>
+<li>Switching keyboards, Shift and Caps Lock are announced</li>
+<li>Long press actions are available after resting on a key, by double-tap and hold, or from TalkBack's actions menu</li>
+<li>Candidates are read when touched, and their panel reads which page is showing</li>
+<li>Keys are at least 48 dp tall and colours meet WCAG AA contrast, in light and dark themes</li>
+<li>In password fields keys are read as "dot" unless headphones are connected</li>
+</ul>
+
+<p><b>Privacy</b></p>
+<ul>
+<li>No permissions at all, no network access</li>
+<li>What the keyboard learns from your typing stays on the device and is never backed up</li>
+</ul>

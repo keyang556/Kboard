@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Kboard</string>
+    <string name="ime_name">Kboard Zhuyin</string>
+    <string name="subtype_zh_tw">Zhuyin (Taiwan)</string>
+
+    <!-- Labels on keys: the same in every language. -->
+    <string name="key_label_symbols" translatable="false">\?123</string>
+    <string name="key_label_more_symbols" translatable="false">=\\&lt;</string>
+    <string name="key_label_full_width" translatable="false">全形</string>
+    <string name="key_label_half_width" translatable="false">半形</string>
+    <string name="key_label_english_letters" translatable="false">ABC</string>
+    <string name="key_label_zhuyin" translatable="false">ㄅㄆㄇ</string>
+    <string name="key_label_numbers" translatable="false">123</string>
+    <string name="key_label_to_english" translatable="false">英</string>
+    <string name="key_label_to_chinese" translatable="false">中</string>
+    <string name="key_label_space_chinese" translatable="false">注音</string>
+    <string name="key_label_space_english" translatable="false">English</string>
+
+    <!-- What TalkBack says for keys. -->
+    <string name="spoken_dot">Dot</string>
+    <string name="spoken_delete">Delete</string>
+    <string name="spoken_space">Space</string>
+    <string name="spoken_space_first_tone">Space, first tone</string>
+    <string name="spoken_shift">Shift</string>
+    <string name="spoken_shift_off">off</string>
+    <string name="spoken_shift_on">on</string>
+    <string name="spoken_caps_lock_on">caps lock</string>
+    <string name="spoken_to_english">Switch to English</string>
+    <string name="spoken_to_zhuyin">Switch to Zhuyin</string>
+    <string name="spoken_pick_input_method">Choose input method</string>
+    <string name="spoken_long_press_type">Type %1$s</string>
+    <string name="spoken_enter">Enter</string>
+    <string name="spoken_action_go">Go</string>
+    <string name="spoken_action_search">Search</string>
+    <string name="spoken_action_send">Send</string>
+    <string name="spoken_action_next">Next</string>
+    <string name="spoken_action_previous">Previous</string>
+    <string name="spoken_action_done">Done</string>
+    <string name="spoken_to_half_width">Half-width symbols</string>
+    <string name="spoken_to_symbols">Numbers and symbols</string>
+    <string name="spoken_to_more_symbols">More symbols</string>
+    <string name="spoken_to_full_width">Full-width punctuation</string>
+    <string name="spoken_to_numbers">Number pad</string>
+    <string name="spoken_to_zhuyin_keyboard">Zhuyin keyboard</string>
+    <string name="spoken_to_english_letters">Letters</string>
+
+    <!-- What TalkBack announces. -->
+    <string name="keyboard_zhuyin">Zhuyin keyboard</string>
+    <string name="keyboard_english">English keyboard</string>
+    <string name="keyboard_symbols">Numbers and symbols</string>
+    <string name="keyboard_more_symbols">More symbols</string>
+    <string name="keyboard_full_width">Full-width punctuation</string>
+    <string name="keyboard_number">Number pad</string>
+    <string name="keyboard_phone">Phone pad</string>
+    <string name="spoken_use_headphones">Plug in a headset to hear password keys spoken aloud.</string>
+    <string name="spoken_keyboard_hidden">Keyboard hidden</string>
+    <string name="spoken_shift_on_announcement">Shift on</string>
+    <string name="spoken_shift_off_announcement">Shift off</string>
+    <string name="spoken_caps_lock_announcement">Caps lock on</string>
+    <string name="engine_unavailable">The Zhuyin engine could not be loaded.</string>
+
+    <!-- Candidates and tools above the keys. -->
+    <string name="candidates_show_all">Show all candidates</string>
+    <string name="candidates_title">Candidates</string>
+    <string name="candidates_symbol_table">Symbol table</string>
+    <string name="candidates_previous_page">Previous page</string>
+    <string name="candidates_next_page">Next page</string>
+    <string name="candidates_close">Back to keyboard</string>
+    <string name="candidates_page">Page %1$d of %2$d</string>
+    <string name="tool_settings">Settings</string>
+    <string name="tool_symbol_table">Symbols and emoji</string>
+    <string name="tool_pick_input_method">Choose input method</string>
+    <string name="tool_hide_keyboard">Hide keyboard</string>
+
+    <!-- Settings. -->
+    <string name="heading_setup">Setting up</string>
+    <string name="setup_status_disabled">Kboard is not enabled yet. Enable it in the system settings, then choose it as your input method.</string>
+    <string name="setup_status_enabled">Kboard is enabled. Choose it as your input method to use it.</string>
+    <string name="setup_status_selected">Kboard is your current input method.</string>
+    <string name="setup_enable">Enable Kboard in system settings</string>
+    <string name="setup_select">Choose input method</string>
+    <string name="setup_try">Try typing</string>
+    <string name="heading_keyboard">Keyboard</string>
+    <string name="setting_zhuyin_layout">Zhuyin layout</string>
+    <string name="layout_dachen">Standard (Dachen)</string>
+    <string name="layout_et26">ETen 26-key</string>
+    <string name="layout_hsu">Hsu</string>
+    <string name="setting_key_height">Key height</string>
+    <string name="key_height_normal">Normal</string>
+    <string name="key_height_large">Large</string>
+    <string name="key_height_extra_large">Extra large</string>
+    <string name="setting_vibrate">Vibrate on key press</string>
+    <string name="setting_sound">Sound on key press</string>
+    <string name="setting_auto_capitalize">Capitalize the first letter of English sentences</string>
+    <string name="heading_zhuyin">Zhuyin</string>
+    <string name="setting_auto_learn">Learn phrases as you type</string>
+    <string name="reset_learning_title">Clear learned phrases</string>
+    <string name="reset_learning_message">Forget every phrase learned from your typing? This cannot be undone.</string>
+    <string name="reset_learning_confirm">Clear</string>
+    <string name="reset_learning_done">Learned phrases cleared</string>
+    <string name="heading_accessibility">Accessibility</string>
+    <string name="accessibility_explanation">With TalkBack, slide a finger over the keys to hear them, and lift it to type the key you hear; a double tap types the last key heard. Rest on a key for three seconds, or double-tap and hold, for what a long press does: digits on the top row of the Zhuyin keyboard, choosing an input method on the space bar. Candidates above the keys are read when touched; double-tap one to choose it.</string>
+    <string name="setting_speak_password_keys">Speak keys in password fields</string>
+    <string name="heading_about">About</string>
+    <string name="about_version">Version %1$s · libchewing %2$s</string>
+    <string name="about_engine_missing">not available</string>
+    <string name="about_text">Kboard is free software, released under the GNU General Public License, version 3 or later. Its Zhuyin engine is libchewing (GNU LGPL 2.1 or later). Source code: https://github.com/keyang556/Kboard</string>
+</resources>

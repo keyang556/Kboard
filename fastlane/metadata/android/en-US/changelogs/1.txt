@@ -1,0 +1,1 @@
+First release: Zhuyin (Dachen, ETen 26, Hsu), English, numbers and symbols, with full TalkBack support.
