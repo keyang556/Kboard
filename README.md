@@ -113,7 +113,7 @@ app/src/main/
 
 ## GitHub Actions
 
-`.github/workflows/build.yml` 會在每次 push 與 pull request：
+`.github/workflows/build.yml` 會在每個分支的每次 push 與 pull request：
 
 - 驗證 Gradle wrapper
 - 安裝 Rust（依 `rust-toolchain.toml`）、NDK、CMake
