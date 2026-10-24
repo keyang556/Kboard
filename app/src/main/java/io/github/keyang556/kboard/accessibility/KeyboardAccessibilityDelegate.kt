@@ -58,6 +58,10 @@ class KeyboardAccessibilityDelegate(
         }
     }
 
+    fun onDescriptionsChanged() {
+        nodeProvider.onDescriptionsChanged()
+    }
+
     fun announce(text: CharSequence) {
         AccessibilityUtils.announce(view, text)
     }

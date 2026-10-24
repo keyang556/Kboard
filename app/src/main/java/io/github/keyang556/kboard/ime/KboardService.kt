@@ -5,12 +5,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.inputmethodservice.InputMethodService
+import android.media.AudioDeviceCallback
+import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.text.InputType
 import android.view.HapticFeedbackConstants
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.ExtractedTextRequest
+import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.ViewCompat
@@ -67,8 +71,10 @@ class KboardService : InputMethodService(),
     private var configuredEngine: ChewingEngine? = null
     private var engineUnavailableShown = false
 
-    // What this input method last put in the editor as composing text.
+    // What this input method last put in the editor as composing text, and where in that
+    // text it put the editor's caret.
     private var composition = Composition.EMPTY
+    private var compositionCaret = 0
     private var candidates: List<Candidate> = emptyList()
     private var panelOpen = false
 
@@ -79,6 +85,14 @@ class KboardService : InputMethodService(),
     private var hardwareKeyboardUsed = false
     private val consumedKeyCodes = HashSet<Int>()
 
+    // Whether the editor holds a password. Its keys are spoken only into headphones, which
+    // can be plugged in or out at any time, so that is checked again whenever they are.
+    private var passwordField = false
+    private val audioDeviceCallback = object : AudioDeviceCallback() {
+        override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>?) = updateObscureInput()
+        override fun onAudioDevicesRemoved(removedDevices: Array<out AudioDeviceInfo>?) = updateObscureInput()
+    }
+
     override fun onCreate() {
         super.onCreate()
         prefs = Prefs(this)
@@ -86,9 +100,11 @@ class KboardService : InputMethodService(),
         // Copy the dictionaries out early, so the first Chinese key does not wait for it.
         val appContext = applicationContext
         thread(name = "ChewingData") { ChewingData.install(appContext) }
+        audioManager().registerAudioDeviceCallback(audioDeviceCallback, null)
     }
 
     override fun onDestroy() {
+        audioManager().unregisterAudioDeviceCallback(audioDeviceCallback)
         ChewingEngineHolder.release()
         configuredEngine = null
         super.onDestroy()
@@ -121,9 +137,13 @@ class KboardService : InputMethodService(),
     override fun onStartInput(attribute: EditorInfo, restarting: Boolean) {
         super.onStartInput(attribute, restarting)
         configuredEngine?.clear()
+        // Whether to learn depends on the editor, also when typed into from a hardware
+        // keyboard, which brings no onStartInputView: configure the engine anew for it.
+        configuredEngine = null
         composition = Composition.EMPTY
         candidates = emptyList()
         commitAfterSelection = false
+        passwordField = EditorInfos.isPassword(attribute.inputType)
         if (!restarting) {
             val language = when {
                 attribute.inputType == InputType.TYPE_NULL -> Language.ENGLISH
@@ -141,19 +161,33 @@ class KboardService : InputMethodService(),
         configuredEngine = null
         keyboards.clear()
         view.rowHeight = (resources.getDimension(R.dimen.key_row_height) * prefs.keyHeight.scale).roundToInt()
-        val obscure = AccessibilityUtils.shouldObscureInput(
-            this, EditorInfos.isPassword(info.inputType), prefs.speakPasswordKeys,
-        )
-        view.describer.obscureInput = obscure
+        view.obscureInput = shouldObscureInput()
         view.describer.syllablePending = false
         closePanel()
         updateAutoShift(redraw = false)
         showKeyboard()
         updateCandidates()
-        if (obscure && AccessibilityUtils.isTouchExplorationEnabled(this)) {
+        if (view.obscureInput && AccessibilityUtils.isTouchExplorationEnabled(this)) {
             view.announce(getString(R.string.spoken_use_headphones))
         }
     }
+
+    private fun shouldObscureInput(): Boolean =
+        AccessibilityUtils.shouldObscureInput(this, passwordField, prefs.speakPasswordKeys)
+
+    /** Headphones came or went: password keys and candidates may be spoken now, or not. */
+    private fun updateObscureInput() {
+        val view = keyboardView ?: return
+        val obscure = shouldObscureInput()
+        if (obscure == view.obscureInput) return
+        view.obscureInput = obscure
+        updateCandidates()
+        if (obscure && isInputViewShown && AccessibilityUtils.isTouchExplorationEnabled(this)) {
+            view.announce(getString(R.string.spoken_use_headphones))
+        }
+    }
+
+    private val obscureInput: Boolean get() = keyboardView?.obscureInput == true
 
     override fun onFinishInputView(finishingInput: Boolean) {
         commitComposition()
@@ -184,10 +218,13 @@ class KboardService : InputMethodService(),
             return
         }
         val composingGone = candidatesStart < 0 || candidatesEnd < 0
-        val cursorMoved = !composingGone && (newSelStart != newSelEnd || newSelEnd != candidatesEnd)
+        val caretAtEnd = compositionCaret == composition.text.length
+        val caretWhereSet = !composingGone && newSelStart == newSelEnd &&
+            (newSelEnd == candidatesStart + compositionCaret || caretAtEnd && newSelEnd == candidatesEnd)
         // Composing text can vanish because the app cleared the field (a chat app sending a
-        // message), or this can be a late report from before the composition was set: ask.
-        if (cursorMoved || composingGone && !editorShowsComposition()) {
+        // message), the caret can move because the user moved it, or this can be a late
+        // report from before this input method's last change: then ask the editor.
+        if (!caretWhereSet && !editorShowsComposition()) {
             configuredEngine?.clear()
             composition = Composition.EMPTY
             keyboardView?.describer?.syllablePending = false
@@ -197,10 +234,16 @@ class KboardService : InputMethodService(),
         }
     }
 
+    /** Whether the editor shows the composition around its caret, as this input method set it. */
     private fun editorShowsComposition(): Boolean {
+        val ic = currentInputConnection ?: return false
+        if (!ic.getSelectedText(0).isNullOrEmpty()) return false
         val text = composition.text
-        val before = currentInputConnection?.getTextBeforeCursor(text.length, 0) ?: return false
-        return before.toString() == text
+        val before = ic.getTextBeforeCursor(compositionCaret, 0) ?: return false
+        if (before.toString() != text.substring(0, compositionCaret)) return false
+        if (compositionCaret == text.length) return true
+        val after = ic.getTextAfterCursor(text.length - compositionCaret, 0) ?: return false
+        return after.toString() == text.substring(compositionCaret)
     }
 
     // ---- The keys ----
@@ -357,7 +400,9 @@ class KboardService : InputMethodService(),
             return null
         }
         if (engine !== configuredEngine) {
-            engine.configure(prefs.zhuyinLayout, prefs.autoLearn)
+            val info = currentInputEditorInfo
+            val learn = prefs.autoLearn && info != null && EditorInfos.allowsLearning(info.inputType, info.imeOptions)
+            engine.configure(prefs.zhuyinLayout, learn)
             configuredEngine = engine
         }
         return engine
@@ -369,20 +414,41 @@ class KboardService : InputMethodService(),
      */
     private fun syncComposition(engine: ChewingEngine, commit: String) {
         val now = engine.composition
+        var caret = now.text.length
         currentInputConnection?.let { ic ->
             ic.beginBatchEdit()
             // Committing replaces the composing text.
             if (commit.isNotEmpty()) ic.commitText(commit, 1)
             if (!now.isEmpty) {
                 ic.setComposingText(now.text, 1)
+                // A hardware keyboard's arrows move libchewing's cursor within what is
+                // composed; the editor's caret follows it there.
+                if (now.textCursor < caret) {
+                    editorCaret(ic)?.let { end ->
+                        val position = end - (caret - now.textCursor)
+                        ic.setSelection(position, position)
+                        caret = now.textCursor
+                    }
+                }
             } else if (commit.isEmpty() && !composition.isEmpty) {
                 ic.commitText("", 1)
             }
             ic.endBatchEdit()
         }
         composition = now
+        compositionCaret = caret
         keyboardView?.describer?.syllablePending = now.bopomofo.isNotEmpty()
         updateCandidates()
+    }
+
+    /**
+     * Where the editor's caret is, counted from the start of its text; null if the editor
+     * does not say. Setting a caret needs this, as there is no moving it by an offset.
+     */
+    private fun editorCaret(ic: InputConnection): Int? {
+        val extracted = ic.getExtractedText(ExtractedTextRequest(), 0) ?: return null
+        if (extracted.selectionEnd < 0) return null
+        return extracted.startOffset + extracted.selectionEnd
     }
 
     /** Commits whatever is composed, as it shows, and closes any selection. */
@@ -415,6 +481,7 @@ class KboardService : InputMethodService(),
         candidateBar?.showCandidates(
             if (panelOpen) emptyList() else candidates,
             showNumbers = hardwareKeyboardUsed && engine?.isSelecting == true,
+            obscure = obscureInput,
         )
         if (hardwareKeyboardUsed) updateInputViewShown()
     }
@@ -488,7 +555,7 @@ class KboardService : InputMethodService(),
         keyboardView?.visibility = View.INVISIBLE
         candidateBar?.visibility = View.INVISIBLE
         panel.visibility = View.VISIBLE
-        panel.showCandidates(candidates, title)
+        panel.showCandidates(candidates, title, obscureInput)
     }
 
     private fun closePanel() {
@@ -537,9 +604,11 @@ class KboardService : InputMethodService(),
                 KeyAction.Space -> AudioManager.FX_KEYPRESS_SPACEBAR
                 else -> AudioManager.FX_KEYPRESS_STANDARD
             }
-            (getSystemService(Context.AUDIO_SERVICE) as AudioManager).playSoundEffect(effect, SOUND_VOLUME)
+            audioManager().playSoundEffect(effect, SOUND_VOLUME)
         }
     }
+
+    private fun audioManager() = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
     // ---- Hardware keyboards ----
 

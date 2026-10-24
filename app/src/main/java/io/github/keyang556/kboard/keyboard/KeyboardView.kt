@@ -56,6 +56,15 @@ class KeyboardView @JvmOverloads constructor(
     val describer = KeyDescriber(context)
     private val accessibility = KeyboardAccessibilityDelegate(this, describer)
 
+    /** Whether the keys that type something are read as "dot", as in a password. */
+    var obscureInput: Boolean
+        get() = describer.obscureInput
+        set(value) {
+            if (describer.obscureInput == value) return
+            describer.obscureInput = value
+            accessibility.onDescriptionsChanged()
+        }
+
     private val keyGap = resources.getDimensionPixelSize(R.dimen.key_gap)
     private val keyboardPadding = resources.getDimensionPixelSize(R.dimen.keyboard_padding)
     private val keyRadius = resources.getDimension(R.dimen.key_corner_radius)

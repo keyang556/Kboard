@@ -36,6 +36,11 @@ class KeyboardAccessibilityNodeProvider(
     fun onKeyboardChanged() {
         focusedId = UNDEFINED
         hoveringId = UNDEFINED
+        onDescriptionsChanged()
+    }
+
+    /** The keys stay, but some are described differently: have them read anew. */
+    fun onDescriptionsChanged() {
         if (!AccessibilityUtils.isEnabled(view.context)) return
         val event = AccessibilityUtils.obtainEvent(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
         view.onInitializeAccessibilityEvent(event)

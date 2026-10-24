@@ -52,6 +52,7 @@ class CandidatePanelView @JvmOverloads constructor(
     private val nextButton = textButton(R.string.candidates_next_page) { showPage(page + 1) }
 
     private var candidates: List<Candidate> = emptyList()
+    private var obscure = false
     private var page = 0
     private var columns = 1
     private var rows = 1
@@ -87,9 +88,13 @@ class CandidatePanelView @JvmOverloads constructor(
         })
     }
 
-    /** Shows [candidates] from the first page; [paneTitle] is what TalkBack calls the panel. */
-    fun showCandidates(candidates: List<Candidate>, paneTitle: CharSequence) {
+    /**
+     * Shows [candidates] from the first page; [paneTitle] is what TalkBack calls the panel.
+     * With [obscure], TalkBack reads the candidates as "dot".
+     */
+    fun showCandidates(candidates: List<Candidate>, paneTitle: CharSequence, obscure: Boolean) {
         this.candidates = candidates
+        this.obscure = obscure
         ViewCompat.setAccessibilityPaneTitle(this, paneTitle)
         page = 0
         if (grid.height > 0) layoutGrid(grid.width, grid.height) else requestLayout()
@@ -126,7 +131,9 @@ class CandidatePanelView @JvmOverloads constructor(
                 val cell = if (candidate == null) {
                     View(context)
                 } else {
-                    CandidateViews.candidateView(context, candidate, null) { listener?.onCandidateSelected(it) }.also {
+                    CandidateViews.candidateView(context, candidate, null, obscure) {
+                        listener?.onCandidateSelected(it)
+                    }.also {
                         setCellInfo(it, rowIndex, columnIndex)
                     }
                 }

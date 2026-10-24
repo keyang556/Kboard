@@ -78,14 +78,15 @@ class CandidateBarView @JvmOverloads constructor(
                 )
             }
         })
-        showCandidates(emptyList(), showNumbers = false)
+        showCandidates(emptyList(), showNumbers = false, obscure = false)
     }
 
     /**
      * Shows [candidates], or the tools when there are none. With [showNumbers], the first
-     * ten are numbered like the keys of a hardware keyboard that choose them.
+     * ten are numbered like the keys of a hardware keyboard that choose them; with
+     * [obscure], TalkBack reads them as "dot".
      */
-    fun showCandidates(candidates: List<Candidate>, showNumbers: Boolean) {
+    fun showCandidates(candidates: List<Candidate>, showNumbers: Boolean, obscure: Boolean) {
         val shown = candidates.take(MAX_CANDIDATES)
         candidateCount = shown.size
         val hasCandidates = shown.isNotEmpty()
@@ -100,11 +101,11 @@ class CandidateBarView @JvmOverloads constructor(
             val view = candidateRow.getChildAt(position) as TextView?
             if (view == null) {
                 candidateRow.addView(
-                    CandidateViews.candidateView(context, candidate, number, ::select),
+                    CandidateViews.candidateView(context, candidate, number, obscure, ::select),
                     LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT),
                 )
             } else {
-                CandidateViews.bind(view, candidate, number, ::select)
+                CandidateViews.bind(view, candidate, number, obscure, ::select)
             }
             setItemInfo(candidateRow.getChildAt(position), position)
         }

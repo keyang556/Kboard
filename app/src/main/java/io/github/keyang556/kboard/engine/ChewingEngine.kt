@@ -32,9 +32,18 @@ data class Composition(val preedit: String, val bopomofo: String, val cursor: In
     val text: String
         get() {
             if (bopomofo.isEmpty()) return preedit
-            val cursorCodePoints = cursor.coerceIn(0, preedit.codePointCount(0, preedit.length))
-            val offset = preedit.offsetByCodePoints(0, cursorCodePoints)
+            val offset = preeditCursor
             return preedit.substring(0, offset) + bopomofo + preedit.substring(offset)
+        }
+
+    /** Where the cursor is in [text], in UTF-16 units: after the syllable being typed. */
+    val textCursor: Int get() = preeditCursor + bopomofo.length
+
+    // The cursor counts characters; strings count UTF-16 units.
+    private val preeditCursor: Int
+        get() {
+            val cursorCodePoints = cursor.coerceIn(0, preedit.codePointCount(0, preedit.length))
+            return preedit.offsetByCodePoints(0, cursorCodePoints)
         }
 
     companion object {

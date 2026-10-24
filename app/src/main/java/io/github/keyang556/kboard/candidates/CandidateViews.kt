@@ -17,15 +17,25 @@ internal object CandidateViews {
     /**
      * A view showing one candidate. It is an ordinary clickable view, so TalkBack reads it
      * when explored, and a double tap chooses it. [number], if any, is the key of a
-     * hardware keyboard that chooses it.
+     * hardware keyboard that chooses it. With [obscure], it is read as "dot", like the
+     * keys of a password.
      */
-    fun candidateView(context: Context, candidate: Candidate, number: Int?, onClick: (Candidate) -> Unit): TextView =
-        TextView(context).apply { bind(this, candidate, number, onClick) }
+    fun candidateView(
+        context: Context,
+        candidate: Candidate,
+        number: Int?,
+        obscure: Boolean,
+        onClick: (Candidate) -> Unit,
+    ): TextView = TextView(context).apply { bind(this, candidate, number, obscure, onClick) }
 
-    fun bind(view: TextView, candidate: Candidate, number: Int?, onClick: (Candidate) -> Unit) {
+    fun bind(view: TextView, candidate: Candidate, number: Int?, obscure: Boolean, onClick: (Candidate) -> Unit) {
         val resources = view.resources
         view.text = if (number != null) "$number ${candidate.text}" else candidate.text
-        view.contentDescription = KeyDescriber.inChinese(candidate.text)
+        view.contentDescription = if (obscure) {
+            resources.getString(R.string.spoken_dot)
+        } else {
+            KeyDescriber.inChinese(candidate.text)
+        }
         view.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.candidate_text_size))
         view.setTextColor(ContextCompat.getColor(view.context, R.color.key_label))
         view.gravity = Gravity.CENTER

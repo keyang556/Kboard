@@ -23,6 +23,17 @@ class CompositionTest {
     @Test
     fun anOutOfRangeCursorIsClamped() {
         assertEquals("你ㄅ", Composition("你", "ㄅ", cursor = 5).text)
+        assertEquals(2, Composition("你", "ㄅ", cursor = 5).textCursor)
+    }
+
+    @Test
+    fun theEditorCursorFollowsTheSyllableBeingTyped() {
+        assertEquals(3, Composition("你", "ㄏㄠ", cursor = 1).textCursor)
+        assertEquals(2, Composition("你", "ㄏㄠ", cursor = 0).textCursor)
+        assertEquals(1, Composition("你好", "", cursor = 1).textCursor)
+        assertEquals(2, Composition("你好", "", cursor = 2).textCursor)
+        // Past the emoji's two UTF-16 units.
+        assertEquals(3, Composition("😀好", "ㄅ", cursor = 1).textCursor)
     }
 
     @Test

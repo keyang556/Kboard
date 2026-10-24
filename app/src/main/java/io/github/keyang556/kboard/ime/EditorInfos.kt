@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 package io.github.keyang556.kboard.ime
 
+import android.annotation.SuppressLint
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import io.github.keyang556.kboard.keyboard.EnterKeyType
@@ -40,6 +41,15 @@ object EditorInfos {
             else -> false
         }
     }
+
+    /**
+     * Whether phrases typed into the editor may be learned: not from passwords, nor from
+     * editors that ask keyboards not to learn from them, such as incognito browser tabs.
+     * (That flag is new in Android 8; older editors simply never set it.)
+     */
+    @SuppressLint("InlinedApi")
+    fun allowsLearning(inputType: Int, imeOptions: Int): Boolean =
+        !isPassword(inputType) && imeOptions and EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING == 0
 
     /** What Enter does: a new line, unless the editor asks for an action. */
     fun enterKeyType(imeOptions: Int): EnterKeyType {

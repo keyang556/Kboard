@@ -39,6 +39,16 @@ class EditorInfosTest {
     }
 
     @Test
+    fun nothingIsLearnedFromPasswordsOrPrivateEditors() {
+        val text = InputType.TYPE_CLASS_TEXT
+        assertTrue(EditorInfos.allowsLearning(text, EditorInfo.IME_ACTION_SEND))
+        assertFalse(EditorInfos.allowsLearning(text or InputType.TYPE_TEXT_VARIATION_PASSWORD, 0))
+        assertFalse(
+            EditorInfos.allowsLearning(text, EditorInfo.IME_ACTION_GO or EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING),
+        )
+    }
+
+    @Test
     fun enterFollowsTheEditorAction() {
         assertEquals(EnterKeyType.SEARCH, EditorInfos.enterKeyType(EditorInfo.IME_ACTION_SEARCH))
         assertEquals(EnterKeyType.SEND, EditorInfos.enterKeyType(EditorInfo.IME_ACTION_SEND))
