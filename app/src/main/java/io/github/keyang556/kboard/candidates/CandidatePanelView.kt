@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.children
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat
 import io.github.keyang556.kboard.R
@@ -98,6 +100,17 @@ class CandidatePanelView @JvmOverloads constructor(
         ViewCompat.setAccessibilityPaneTitle(this, paneTitle)
         page = 0
         if (grid.height > 0) layoutGrid(grid.width, grid.height) else requestLayout()
+    }
+
+    /**
+     * Has TalkBack read the candidates as "dot" with [obscure], or as themselves, keeping
+     * the page showing and the candidate TalkBack is on.
+     */
+    fun setObscure(obscure: Boolean) {
+        this.obscure = obscure
+        grid.children.filterIsInstance<ViewGroup>().forEach { row ->
+            row.children.forEach { CandidateViews.describe(it, obscure) }
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

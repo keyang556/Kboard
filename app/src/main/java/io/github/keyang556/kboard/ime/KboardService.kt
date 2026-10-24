@@ -181,7 +181,10 @@ class KboardService : InputMethodService(),
         val obscure = shouldObscureInput()
         if (obscure == view.obscureInput) return
         view.obscureInput = obscure
-        updateCandidates()
+        // The candidates are the same: only how they are read changes, so the page showing
+        // and TalkBack's place among them stay.
+        candidateBar?.setObscure(obscure)
+        candidatePanel?.setObscure(obscure)
         if (obscure && isInputViewShown && AccessibilityUtils.isTouchExplorationEnabled(this)) {
             view.announce(getString(R.string.spoken_use_headphones))
         }

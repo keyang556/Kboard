@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.children
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat
 import io.github.keyang556.kboard.R
@@ -110,6 +111,11 @@ class CandidateBarView @JvmOverloads constructor(
             setItemInfo(candidateRow.getChildAt(position), position)
         }
         scroller.scrollTo(0, 0)
+    }
+
+    /** Has TalkBack read the candidates shown as "dot" with [obscure], or as themselves. */
+    fun setObscure(obscure: Boolean) {
+        candidateRow.children.forEach { CandidateViews.describe(it, obscure) }
     }
 
     private fun select(candidate: Candidate) {

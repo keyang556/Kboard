@@ -31,11 +31,8 @@ internal object CandidateViews {
     fun bind(view: TextView, candidate: Candidate, number: Int?, obscure: Boolean, onClick: (Candidate) -> Unit) {
         val resources = view.resources
         view.text = if (number != null) "$number ${candidate.text}" else candidate.text
-        view.contentDescription = if (obscure) {
-            resources.getString(R.string.spoken_dot)
-        } else {
-            KeyDescriber.inChinese(candidate.text)
-        }
+        view.tag = candidate
+        describe(view, obscure)
         view.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.candidate_text_size))
         view.setTextColor(ContextCompat.getColor(view.context, R.color.key_label))
         view.gravity = Gravity.CENTER
@@ -48,5 +45,18 @@ internal object CandidateViews {
         view.isFocusable = true
         view.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
         view.setOnClickListener { onClick(candidate) }
+    }
+
+    /**
+     * Sets what TalkBack says for [view], if it shows a candidate: the candidate, or "dot"
+     * with [obscure]. The view stays as it is, so TalkBack's focus stays on it.
+     */
+    fun describe(view: View, obscure: Boolean) {
+        val candidate = view.tag as? Candidate ?: return
+        view.contentDescription = if (obscure) {
+            view.resources.getString(R.string.spoken_dot)
+        } else {
+            KeyDescriber.inChinese(candidate.text)
+        }
     }
 }
