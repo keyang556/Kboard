@@ -78,14 +78,17 @@ class KeyboardAccessibilityDelegate(
                 lastHoverKey = key
             }
             MotionEvent.ACTION_HOVER_EXIT -> {
-                lastHoverKey?.let(::onHoverExitFrom)
-                // The finger lifted off a key, rather than sliding off the keyboard: type it.
-                if (key != null) {
-                    if (key !== longPressedKey) performClickOn(key)
-                    if (key !== lastHoverKey) onHoverExitFrom(key)
-                }
-                longPressedKey = null
+                val previous = lastHoverKey
+                val longPressed = longPressedKey
                 lastHoverKey = null
+                longPressedKey = null
+                previous?.let(::onHoverExitFrom)
+                // The finger lifted off a key, rather than sliding off the keyboard: type it.
+                // Last, as typing it may show another keyboard.
+                if (key != null) {
+                    if (key !== previous) onHoverExitFrom(key)
+                    if (key !== longPressed) performClickOn(key)
+                }
             }
         }
         return true

@@ -119,6 +119,9 @@ class KeyboardView @JvmOverloads constructor(
     fun setKeyboard(newKeyboard: Keyboard) {
         cancelTouch()
         val old = keyboard
+        // Keyboards are reused: none should come back with a key still held down.
+        old?.keys?.forEach { it.isPressed = false }
+        newKeyboard.keys.forEach { it.isPressed = false }
         keyboard = newKeyboard
         layoutKeys()
         requestLayout()

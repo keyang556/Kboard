@@ -143,11 +143,13 @@ abstract class BuildChewingData : DefaultTask() {
         fileSystemOperations.delete { delete(output) }
         output.mkdirs()
 
+        // Not --locked: newer cargo wants to refresh libchewing's own lock file, which only
+        // fills in what is missing, as Corrosion's build of the library does too.
         for (name in listOf("tsi", "word")) {
             execOperations.exec {
                 workingDir(chewing)
                 commandLine(
-                    "cargo", "run", "--quiet", "--release", "--locked",
+                    "cargo", "run", "--quiet", "--release",
                     "--package", "chewing-cli",
                     "--target-dir", cargoTargetDir.get().asFile.absolutePath,
                     "--",
