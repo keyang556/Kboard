@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Keyboard colours. Labels are at least 4.5:1 against their keys (WCAG 2.x AA for text),
+    key outlines at least 3:1 against the keyboard (AA for user interface components).
+-->
+<resources>
+    <color name="keyboard_background">#E8EAED</color>
+    <color name="key_background">#FFFFFF</color>
+    <color name="key_background_pressed">#C4C8CE</color>
+    <color name="key_function_background">#D2D5DB</color>
+    <color name="key_function_background_pressed">#A9AEB6</color>
+    <color name="key_action_background">#1A5FB4</color>
+    <color name="key_action_background_pressed">#123F78</color>
+    <color name="key_border">#6E737A</color>
+    <color name="key_label">#1F1F1F</color>
+    <color name="key_action_label">#FFFFFF</color>
+    <color name="key_hint">#45484D</color>
+    <color name="ripple">#33000000</color>
+    <color name="launcher_background">#1A5FB4</color>
+    <color name="accent">#1A5FB4</color>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        What TalkBack says for symbols on the keys, rather than the symbol itself, which
+        speech engines often skip or mispronounce. Each item is the symbol, a space, then
+        its name.
+    -->
+    <string-array name="symbol_names">
+        <item>, comma</item>
+        <item>. period</item>
+        <item>\@ at sign</item>
+        <item># number sign</item>
+        <item>$ dollar sign</item>
+        <item>% percent sign</item>
+        <item>&amp; ampersand</item>
+        <item>- hyphen</item>
+        <item>+ plus sign</item>
+        <item>( left parenthesis</item>
+        <item>) right parenthesis</item>
+        <item>/ slash</item>
+        <item>* asterisk</item>
+        <item>\" double quote</item>
+        <item>\' apostrophe</item>
+        <item>: colon</item>
+        <item>; semicolon</item>
+        <item>! exclamation mark</item>
+        <item>\? question mark</item>
+        <item>~ tilde</item>
+        <item>` grave accent</item>
+        <item>| vertical bar</item>
+        <item>• bullet</item>
+        <item>√ square root</item>
+        <item>π pi</item>
+        <item>÷ division sign</item>
+        <item>× multiplication sign</item>
+        <item>¶ pilcrow</item>
+        <item>∆ delta</item>
+        <item>£ pound sign</item>
+        <item>¢ cent sign</item>
+        <item>€ euro sign</item>
+        <item>¥ yen sign</item>
+        <item>^ caret</item>
+        <item>° degree sign</item>
+        <item>= equals sign</item>
+        <item>{ left brace</item>
+        <item>} right brace</item>
+        <item>\\ backslash</item>
+        <item>_ underscore</item>
+        <item>&lt; less-than sign</item>
+        <item>&gt; greater-than sign</item>
+        <item>[ left bracket</item>
+        <item>] right bracket</item>
+        <item>© copyright sign</item>
+        <item>® registered sign</item>
+        <item>， full-width comma</item>
+        <item>。 ideographic full stop</item>
+        <item>、 enumeration comma</item>
+        <item>； full-width semicolon</item>
+        <item>： full-width colon</item>
+        <item>？ full-width question mark</item>
+        <item>！ full-width exclamation mark</item>
+        <item>… ellipsis</item>
+        <item>— em dash</item>
+        <item>～ full-width tilde</item>
+        <item>「 left corner bracket</item>
+        <item>」 right corner bracket</item>
+        <item>『 left double corner bracket</item>
+        <item>』 right double corner bracket</item>
+        <item>（ full-width left parenthesis</item>
+        <item>） full-width right parenthesis</item>
+        <item>《 left double angle bracket</item>
+        <item>》 right double angle bracket</item>
+        <item>〈 left angle bracket</item>
+        <item>〉 right angle bracket</item>
+        <item>· middle dot</item>
+        <item>“ left double quotation mark</item>
+        <item>” right double quotation mark</item>
+        <item>‘ left single quotation mark</item>
+        <item>’ right single quotation mark</item>
+        <item>【 left black lenticular bracket</item>
+        <item>】 right black lenticular bracket</item>
+        <item>※ reference mark</item>
+        <item>ˊ second tone</item>
+        <item>ˇ third tone</item>
+        <item>ˋ fourth tone</item>
+        <item>˙ neutral tone</item>
+    </string-array>
+</resources>

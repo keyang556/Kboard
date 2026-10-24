@@ -1,0 +1,8 @@
+[submodule "app/src/main/cpp/libchewing"]
+	path = app/src/main/cpp/libchewing
+	url = https://codeberg.org/chewing/libchewing.git
+	shallow = true
+[submodule "app/src/main/cpp/corrosion"]
+	path = app/src/main/cpp/corrosion
+	url = https://github.com/corrosion-rs/corrosion.git
+	shallow = true

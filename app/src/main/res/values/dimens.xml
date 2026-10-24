@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Accessibility guidelines ask for touch targets of at least 48 dp. -->
+    <dimen name="min_touch_target">48dp</dimen>
+    <dimen name="key_row_height">54dp</dimen>
+    <dimen name="key_gap">6dp</dimen>
+    <dimen name="keyboard_padding">4dp</dimen>
+    <dimen name="key_corner_radius">6dp</dimen>
+    <dimen name="key_border_width">1dp</dimen>
+    <dimen name="key_hint_padding">4dp</dimen>
+    <dimen name="candidate_text_size">22sp</dimen>
+    <dimen name="candidate_padding">12dp</dimen>
+    <dimen name="candidate_cell_min_width">64dp</dimen>
+    <dimen name="candidate_cell_height">52dp</dimen>
+    <dimen name="panel_title_text_size">16sp</dimen>
+    <dimen name="settings_padding">16dp</dimen>
+</resources>

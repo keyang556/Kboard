@@ -1,0 +1,41 @@
+# A starting point for this app's recipe in fdroiddata
+# (https://gitlab.com/fdroid/fdroiddata, as metadata/io.github.keyang556.kboard.yml).
+# F-Droid builds from source on its own servers and signs the APK itself.
+Categories:
+  - Keyboard & IME
+License: GPL-3.0-or-later
+AuthorName: keyang556
+SourceCode: https://github.com/keyang556/Kboard
+IssueTracker: https://github.com/keyang556/Kboard/issues
+
+AutoName: Kboard
+
+RepoType: git
+Repo: https://github.com/keyang556/Kboard.git
+
+Builds:
+  - versionName: 0.1.0
+    versionCode: 1
+    commit: v0.1.0
+    subdir: app
+    # libchewing, its dictionary data, and Corrosion are git submodules.
+    submodules: true
+    srclibs:
+      - rustup@1.28.2
+    prebuild:
+      - sdkmanager 'cmake;3.31.6'
+      - $$rustup$$/rustup-init.sh -y --profile minimal --default-toolchain none
+      - source $HOME/.cargo/env
+      - toolchain=$(sed -n 's/^channel = "\(.*\)"/\1/p' ../rust-toolchain.toml)
+      - rustup toolchain install "$toolchain" --profile minimal --target aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+    # Source archives of the Ministry of Education dictionary, which the app does not use.
+    scandelete:
+      - app/src/main/cpp/libchewing/data/dict/moe/sources
+    gradle:
+      - yes
+    ndk: 30.0.16248370
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 0.1.0
+CurrentVersionCode: 1

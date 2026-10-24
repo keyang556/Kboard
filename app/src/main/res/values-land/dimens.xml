@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lower rows leave room for the app in landscape, but never below 48 dp. -->
+    <dimen name="key_row_height">48dp</dimen>
+</resources>

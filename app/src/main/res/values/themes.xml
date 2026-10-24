@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Kboard" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/accent</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="SettingsTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/min_touch_target</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Headline</item>
+    </style>
+
+    <style name="SettingsHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:minHeight">@dimen/min_touch_target</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Title</item>
+    </style>
+
+    <style name="SettingsText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body1</item>
+    </style>
+
+    <style name="SettingsButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:minHeight">@dimen/min_touch_target</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="SettingsChoice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/min_touch_target</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+    </style>
+
+    <style name="SettingsSwitch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:minHeight">@dimen/min_touch_target</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+    </style>
+</resources>

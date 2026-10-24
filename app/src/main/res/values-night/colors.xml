@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="keyboard_background">#1B1C1E</color>
+    <color name="key_background">#3A3C40</color>
+    <color name="key_background_pressed">#505358</color>
+    <color name="key_function_background">#2A2C2F</color>
+    <color name="key_function_background_pressed">#4A4D52</color>
+    <color name="key_action_background">#A8C7FA</color>
+    <color name="key_action_background_pressed">#7FA8EE</color>
+    <color name="key_border">#8E9196</color>
+    <color name="key_label">#ECEDEF</color>
+    <color name="key_action_label">#062E6F</color>
+    <color name="key_hint">#D4D7DC</color>
+    <color name="ripple">#40FFFFFF</color>
+    <color name="accent">#A8C7FA</color>
+</resources>

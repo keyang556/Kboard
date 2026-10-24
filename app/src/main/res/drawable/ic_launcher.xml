@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The launcher icon before Android 8, which has no adaptive icons. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/launcher_background"
+        android:pathData="M54,6a48,48 0,1 1,0 96a48,48 0,1 1,0 -96z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M50,31L41,47H67L63.5,73L55,68"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="7" />
+</vector>

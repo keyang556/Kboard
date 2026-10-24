@@ -1,0 +1,17 @@
+# Gradle and Android Studio
+.gradle/
+build/
+/local.properties
+.idea/
+*.iml
+.cxx/
+.externalNativeBuild/
+captures/
+
+# Signing keys never belong in the repository
+*.jks
+*.keystore
+
+# OS clutter
+.DS_Store
+Thumbs.db
