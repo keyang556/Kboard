@@ -84,7 +84,7 @@ git submodule update --init --recursive
 建置流程：
 
 1. Gradle 的 `build<Variant>ChewingData` 工作用 cargo 在本機建置 `chewing-cli`，把 libchewing 的詞庫 CSV 編譯成 `tsi.dat`、`word.dat`，連同 `swkb.dat`、`symbols.dat` 打包為 assets。
-2. CMake 經由 [Corrosion](https://github.com/corrosion-rs/corrosion) 為各 ABI 編譯 libchewing（Rust），靜態連結進 JNI 函式庫 `libkboard_jni.so`。
+2. CMake 經由 [Corrosion](https://github.com/corrosion-rs/corrosion) 為各 ABI 編譯 libchewing（Rust）為 `libchewing.so`，由 JNI 函式庫 `libkboard_jni.so` 連結使用。
 3. App 第一次使用時把詞庫複製到 `noBackupFilesDir`，供 libchewing 讀取。
 
 測試與檢查：

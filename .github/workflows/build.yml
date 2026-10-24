@@ -68,10 +68,6 @@ jobs:
       - name: Build, test and lint
         run: ./gradlew --no-configuration-cache testDebugUnitTest lintDebug assembleDebug assembleRelease
 
-      - name: Show what cargo changed in libchewing's lock file
-        if: always()
-        run: git -C app/src/main/cpp/libchewing diff --stat -- Cargo.lock
-
       - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:

@@ -2,10 +2,10 @@
 cmake_minimum_required(VERSION 3.27)
 project(kboard_jni LANGUAGES C CXX)
 
-# libchewing is linked in statically, and only its library is built: no shared library,
-# command line tools, documentation, dictionaries or tests. The dictionaries are compiled
-# for the build machine by Gradle (see BuildChewingData in app/build.gradle.kts).
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+# Only libchewing's library is built (as libchewing.so, which the app packages next to
+# ours): no command line tools, documentation, dictionaries or tests. Its install rules
+# require the shared build. The dictionaries are compiled for the build machine by Gradle
+# (see BuildChewingData in app/build.gradle.kts).
 set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 set(BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(BUILD_DATA OFF CACHE BOOL "" FORCE)
